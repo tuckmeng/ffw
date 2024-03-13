@@ -1,0 +1,37 @@
+<html>
+  <head><title>FFW Search Example</title></head>
+  <body>
+<script type="text/javascript">
+function dosearch() {
+googlesearchbox=document.getElementById("gsc-i-id1");
+googlesubmit=document.getElementsByClassName("gsc-search-button gsc-search-button-v2")[0];
+googlesearchbox.value="\"" + document.getElementById("myname").value + "\"" + " \"family name\" \"common name\"";
+googlesubmit.click();
+// Get HTML of hidegoogle element
+googleresults1=document.getElementById("hidegoogle").innerHTML;
+// Parse googleresults1 to get Family Name and Common Name;
+document.getElementById("result1").innerHTML="Test";
+}
+</script>
+    <form>
+        <label for="dummy1">Search for :</label> 
+        <input type="text" width=80 id="myname" name="myname" /> 
+        <input type="button" id=mybutton value="Search" onclick="dosearch()" />
+    </form>
+
+<p id=result1>Result 1</p>
+<p id=result2>Result 2</p>
+<script async src="https://cse.google.com/cse.js?cx=a3e71911724544442">
+</script>
+<div id="hidegoogle">
+<div class="gcse-search"></div>
+</div>
+
+<script>
+googlesearchbox=document.getElementById("gsc-i-id1");
+googlesubmit=document.getElementsByClassName("gsc-search-button gsc-search-button-v2")[0];
+document.getElementById("hidegoogle").style.visibility="hidden";
+</script>
+  </body>
+</html>
+
