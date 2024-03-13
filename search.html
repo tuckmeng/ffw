@@ -2,26 +2,55 @@
   <head><title>FFW Search Example</title></head>
   <body>
 <script type="text/javascript">
+var additionalchoices = "";
+
 function dosearch() {
+// Click Search Button
 googlesearchbox=document.getElementById("gsc-i-id1");
 googlesubmit=document.getElementsByClassName("gsc-search-button gsc-search-button-v2")[0];
-googlesearchbox.value="\"" + document.getElementById("myname").value + "\"" + " \"family name\" \"common name\"";
+googlesearchbox.value="";
+googlesearchbox.value="\"" + document.getElementById("myname").value + "\"" + " \"family name\" \"common name\"" + " " + additionalchoices;
 googlesubmit.click();
 // Get HTML of hidegoogle element
 googleresults1=document.getElementById("hidegoogle").innerHTML;
 // Parse googleresults1 to get Family Name and Common Name;
 document.getElementById("result1").innerHTML="Test";
 }
-</script>
-    <form>
-        <label for="dummy1">Search for :</label> 
-        <input type="text" width=80 id="myname" name="myname" /> 
-        <input type="button" id=mybutton value="Search" onclick="dosearch()" />
-    </form>
 
-<p id=result1>Result 1</p>
-<p id=result2>Result 2</p>
+function updateAdditionalChoices() {
+// Control additional checkboxes
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function(checkbox) {
+            if (checkbox.checked) {
+                additionalchoices += '"' + checkbox.value + '" ';
+            }
+        });
+        // Remove the trailing comma and space
+        additionalchoices = additionalchoices.slice(0, -1);
+        // Display the concatenated selected values
+        document.getElementById("additionalchoices").innerText = additionalchoices;
+}
+
+</script>
+
+<form>
+        <label for="dummy1">Search for :</label>
+        <input type="text" width=80 id="myname" name="myname" />
+        <input type="button" id=mybutton value="Search" onclick="dosearch()" />
+</form>
+
+<form>
+    <label><input type="checkbox" value="biodiversity" onchange="updateAdditionalChoices()"> Biodiversity Attracting</label>
+    <label><input type="checkbox" value="edible" onchange="updateAdditionalChoices()"> Edible</label>
+    <label><input type="checkbox" value="fragrant" onchange="updateAdditionalChoices()"> Fragrant</label>
+    <label><input type="checkbox" value="native" onchange="updateAdditionalChoices()"> Native to Singapore</label>
+    <label><input type="checkbox" value="coastalmarine" onchange="updateAdditionalChoices()"> Coastal and Marine</label>
+    <label><input type="checkbox" value="freshwater" onchange="updateAdditionalChoices()"> Freshwater</label>
+    <label><input type="checkbox" value="terrestrial" onchange="updateAdditionalChoices()"> Terrestrial</label>
+</form>
+
 <script async src="https://cse.google.com/cse.js?cx=a3e71911724544442">
+// Google Custom Search
 </script>
 <div id="hidegoogle">
 <div class="gcse-search"></div>
@@ -34,4 +63,3 @@ document.getElementById("hidegoogle").style.visibility="hidden";
 </script>
   </body>
 </html>
-
